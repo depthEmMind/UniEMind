@@ -1,2 +1,11 @@
-persistence: json
+persistence: files
+root: data/memory
 working_limit: 128
+token_limit: 8000
+habit_confidence_threshold: 0.2
+object_unseen_seconds: 86400
+event_history_window_seconds: 604800
+availability_rate_threshold: 0.3
+episodic_keep_recent: 32
+confidence_forget_threshold: 0.15
+inject_limit: 5

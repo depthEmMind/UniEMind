@@ -12,6 +12,7 @@ from schema.base import (
 from schema.event import Event
 from schema.inference import InferenceBackend, InferenceRequest, InferenceResponse
 from schema.interaction import InteractionRequest, InteractionResponse, InteractionType
+from schema.memory import MemoryContext, SceneObject, TaskNode
 from schema.recovery import RecoveryAction, RecoveryPolicy
 from schema.robot import JointState, RobotHealth, RobotProfile, RobotState
 from schema.sensor import SensorData, SensorDataType, SensorMetadata
@@ -37,6 +38,7 @@ __all__ = [
     "InteractionResponse",
     "InteractionType",
     "JointState",
+    "MemoryContext",
     "Observation",
     "ObservedObject",
     "RecoveryAction",
@@ -47,6 +49,7 @@ __all__ = [
     "SensorData",
     "SensorDataType",
     "SensorMetadata",
+    "SceneObject",
     "Session",
     "SkillMetadata",
     "SkillRequest",
@@ -55,6 +58,7 @@ __all__ = [
     "Status",
     "Task",
     "TaskStep",
+    "TaskNode",
     "TaskStepStatus",
     "WorkingContext",
     "WorldState",

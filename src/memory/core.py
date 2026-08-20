@@ -13,6 +13,7 @@ from uuid import UUID, uuid4
 from pydantic import Field
 
 from schema.base import UniEMindModel, utc_now
+from schema.memory import MemoryContext, MemorySnippet
 
 
 class MemoryKind(str, Enum):
@@ -21,6 +22,11 @@ class MemoryKind(str, Enum):
     SEMANTIC = "semantic"
     CAPABILITY = "capability"
     SYSTEM_STATE = "system_state"
+
+
+LONG_TERM_KINDS: frozenset[MemoryKind] = frozenset(
+    {MemoryKind.EPISODIC, MemoryKind.SEMANTIC, MemoryKind.CAPABILITY, MemoryKind.SYSTEM_STATE}
+)
 
 
 class MemoryRecord(UniEMindModel):
@@ -79,6 +85,12 @@ class InMemoryStore(MemoryStore):
         async with self._lock:
             return self._records.pop(memory_id, None) is not None
 
+    async def clear(self) -> int:
+        async with self._lock:
+            count = len(self._records)
+            self._records.clear()
+            return count
+
     async def dump(self) -> list[MemoryRecord]:
         async with self._lock:
             return [record.model_copy(deep=True) for record in self._records.values()]
@@ -93,13 +105,48 @@ class MemoryRouter:
     async def remember(self, record: MemoryRecord) -> None:
         await self._stores[record.kind].add(record)
 
+    async def update(self, record: MemoryRecord) -> None:
+        await self.remember(record)
+
+    async def query(self, query: MemoryQuery) -> list[MemoryRecord]:
+        return await self.retrieve(query)
+
     async def retrieve(self, query: MemoryQuery) -> list[MemoryRecord]:
+        kinds = query.kinds or set(MemoryKind)
         groups = await asyncio.gather(
-            *(self._stores[kind].search(query) for kind in query.kinds if kind in self._stores)
+            *(self._stores[kind].search(query) for kind in kinds if kind in self._stores)
         )
         records = [record for group in groups for record in group]
-        records.sort(key=lambda record: (record.relevance, record.created_at), reverse=True)
-        return records[: query.limit]
+        return self.rank(records)[: query.limit]
+
+    def rank(self, records: list[MemoryRecord]) -> list[MemoryRecord]:
+        ranked = list(records)
+        ranked.sort(key=lambda record: (record.relevance, record.created_at), reverse=True)
+        return ranked
+
+    async def inject(self, text: str, limit: int = 10) -> MemoryContext:
+        records = await self.retrieve(
+            MemoryQuery(text=text, kinds=set(LONG_TERM_KINDS), limit=max(limit * len(LONG_TERM_KINDS), 1))
+        )
+        grouped: dict[MemoryKind, list[MemorySnippet]] = {kind: [] for kind in LONG_TERM_KINDS}
+        for record in records:
+            if record.kind not in grouped or len(grouped[record.kind]) >= limit:
+                continue
+            grouped[record.kind].append(
+                MemorySnippet(
+                    kind=record.kind.value,
+                    content=record.content,
+                    relevance=record.relevance,
+                    tags=set(record.tags),
+                )
+            )
+        return MemoryContext(
+            request=text,
+            episodic=grouped[MemoryKind.EPISODIC],
+            semantic=grouped[MemoryKind.SEMANTIC],
+            capability=grouped[MemoryKind.CAPABILITY],
+            system_state=grouped[MemoryKind.SYSTEM_STATE],
+        )
 
     async def forget(self, kind: MemoryKind, memory_id: UUID) -> bool:
         return await self._stores[kind].forget(memory_id)
@@ -124,3 +171,6 @@ class MemoryRouter:
             await working.forget(record.memory_id)
             moved += 1
         return moved
+
+    async def consolidate(self) -> int:
+        return await self.consolidate_working()
