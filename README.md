@@ -1,5 +1,5 @@
 # UniEMind
-
+[简体中文说明](readme_zh.md)
 UniEMind is an open-source cognitive architecture for embodied robots.
 
 It aims to build a unified robotic mind so that robots can **understand the world, themselves, objects, and tasks**, then reason about how to act autonomously in the physical world.
@@ -17,7 +17,7 @@ A robot needs to keep answering:
 * Did the previous action succeed?
 * How should my understanding of the world be updated?
 
-[简体中文说明](readme_zh.md)
+
 
 ---
 

@@ -1,4 +1,5 @@
 # UniEMind
+[English README](README.md)
 
 UniEMind 是一个面向具身智能机器人的开源认知架构。
 
@@ -18,7 +19,7 @@ UniEMind 是一个面向具身智能机器人的开源认知架构。
 * 上一次动作成功了吗？
 * 我对世界的理解应该如何更新？
 
-[English README](README.md)
+
 
 
 ---
