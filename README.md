@@ -513,20 +513,27 @@ The project is being developed as a long-term open-source research and engineeri
 
 ### Current
 
-* [ ] Project architecture
-* [ ] Core runtime
-* [ ] State representation
-* [ ] Message system
-* [ ] Working memory
-* [ ] Skill abstraction
-* [ ] Simulation interface
+* [x] Foundation architecture
+* [x] Versioned core schemas
+* [x] In-process data bus
+* [x] Configuration loader and robot profile
+* [x] ROS 2 transport and sensor adapter interfaces
+* [x] Structured JSON logging
+* [x] Plugin lifecycle interface
+* [x] Unit and integration test infrastructure
+* [x] Current-state World Model
+* [x] Five-layer Memory Router
+* [x] Skill and Agent runtimes
+* [x] Safety-gated controller execution
+* [x] First simulation MVP closed loop
 
 ### In Progress
 
-* [ ] World Model
+* [ ] ROS 2 runtime implementation
+* [ ] Data recording and replay
+* [ ] Perception interfaces
 * [ ] Self Model
 * [ ] Object Model
-* [ ] Long-term Memory
 * [ ] Task Planning
 * [ ] Navigation
 * [ ] Manipulation
@@ -550,12 +557,12 @@ The roadmap will evolve as the architecture and research directions mature.
 
 ## Phase 0 — Foundation
 
-* [ ] Define core architecture
-* [ ] Define state and message protocols
-* [ ] Establish runtime abstraction
-* [ ] Establish skill interface
+* [x] Define core architecture
+* [x] Define state and message protocols
+* [x] Establish runtime abstraction
+* [x] Establish skill interface
 * [ ] Establish memory interface
-* [ ] Establish testing infrastructure
+* [x] Establish testing infrastructure
 
 ## Phase 1 — Cognitive Core
 
@@ -599,21 +606,25 @@ The roadmap will evolve as the architecture and research directions mature.
 
 # 🚀 Quick Start
 
-> Quick Start will be added once the initial runtime API is stable.
-
-The intended usage is:
-
 ```bash
 git clone https://github.com/depthEmMind/UniEMind.git
 
 cd UniEMind
 
-pip install -e .
+python -m pip install -e ".[dev]"
 
-python examples/hello_world.py
+python examples/foundation.py
+python examples/mvp_cup.py
+pytest
 ```
 
-The first examples will focus on demonstrating the complete cognitive loop in simulation before expanding to real robots.
+The Foundation example loads a hardware-agnostic robot profile and publishes a
+versioned `RobotState` over the in-process `DataBus`. ROS 2 is intentionally
+kept behind replaceable transport and adapter interfaces.
+
+The MVP example runs the specification's first closed loop in simulation:
+find a cup, navigate to it, grasp it through the mandatory safety boundary,
+and verify the updated world state.
 
 ---
 

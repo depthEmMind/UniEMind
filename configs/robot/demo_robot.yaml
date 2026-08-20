@@ -1,0 +1,17 @@
+name: demo_robot
+type: wheeled_humanoid
+frame_id: base_link
+arms:
+  left: true
+  right: true
+hands:
+  left: dexterous
+  right: dexterous
+sensors:
+  rgb_camera: true
+  depth_camera: true
+  lidar: true
+  imu: true
+capabilities:
+  - navigation
+  - manipulation
