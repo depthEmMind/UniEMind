@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from uniemind.config import load_config
-from uniemind.schema import RobotProfile
+from config import load_config
+from schema import RobotProfile
 
 
 def test_load_robot_profile_with_overrides(monkeypatch, tmp_path: Path) -> None:

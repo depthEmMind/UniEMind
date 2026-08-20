@@ -1,7 +1,7 @@
 import asyncio
 
-from uniemind.schema import Status, TaskStepStatus
-from uniemind.simulation import run_cup_demo
+from schema import Status, TaskStepStatus
+from simulation import run_cup_demo
 
 
 def test_first_mvp_task_completes_closed_loop() -> None:

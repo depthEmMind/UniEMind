@@ -3,9 +3,9 @@
 import asyncio
 from pathlib import Path
 
-from uniemind.config import load_config
-from uniemind.core import DataBus
-from uniemind.schema import Header, RobotProfile, RobotState, Status
+from config import load_config
+from core import DataBus
+from schema import Header, RobotProfile, RobotState, Status
 
 
 async def main() -> None:

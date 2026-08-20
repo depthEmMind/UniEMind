@@ -1,7 +1,7 @@
 import asyncio
 
-from uniemind.core import DataBus
-from uniemind.schema import Header, SensorData, SensorDataType
+from core import DataBus
+from schema import Header, SensorData, SensorDataType
 
 
 def test_adapter_output_can_flow_over_data_bus() -> None:

@@ -2,7 +2,7 @@
 
 import asyncio
 
-from uniemind.simulation import run_cup_demo
+from simulation import run_cup_demo
 
 
 async def main() -> None:

@@ -3,7 +3,7 @@ from uuid import uuid4
 import pytest
 from pydantic import ValidationError
 
-from uniemind.schema import (
+from schema import (
     ActionRequest,
     ActionType,
     Header,

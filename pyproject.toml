@@ -24,15 +24,36 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/uniemind"]
+packages = [
+  "src/agent",
+  "src/algorithms",
+  "src/config",
+  "src/core",
+  "src/data",
+  "src/execution",
+  "src/interaction",
+  "src/memory",
+  "src/monitoring",
+  "src/observability",
+  "src/perception",
+  "src/plugins",
+  "src/ros2",
+  "src/safety",
+  "src/schema",
+  "src/session",
+  "src/simulation",
+  "src/skills",
+  "src/tools",
+  "src/world_model",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra --strict-markers"
+addopts = "-ra --strict-markers -p no:launch_testing -p no:launch_pytest -p no:launch_ros -p no:ament_flake8 -p no:ament_xmllint -p no:ament_pep257 -p no:ament_lint -p no:ament_copyright"
 
 [tool.ruff]
 target-version = "py310"
-line-length = 100
+line-length = 120
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
@@ -41,3 +62,6 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 python_version = "3.10"
 strict = true
 plugins = ["pydantic.mypy"]
+
+[tool.coverage.run]
+source = ["src"]

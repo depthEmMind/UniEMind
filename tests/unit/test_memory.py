@@ -1,6 +1,6 @@
 import asyncio
 
-from uniemind.memory import MemoryKind, MemoryQuery, MemoryRecord, MemoryRouter
+from memory import MemoryKind, MemoryQuery, MemoryRecord, MemoryRouter
 
 
 def test_router_searches_selected_memory_layers() -> None:

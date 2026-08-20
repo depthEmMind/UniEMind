@@ -1,7 +1,7 @@
 import asyncio
 
-from uniemind.schema import Header, Observation, ObservedObject
-from uniemind.world_model import WorldModel
+from schema import Header, Observation, ObservedObject
+from world_model import WorldModel
 
 
 def test_observation_updates_world_revision() -> None:

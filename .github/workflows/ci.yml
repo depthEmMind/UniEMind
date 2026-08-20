@@ -19,4 +19,4 @@ jobs:
       - run: python -m pip install -e ".[dev]"
       - run: ruff check .
       - run: mypy src
-      - run: pytest --cov=uniemind --cov-report=term-missing
+      - run: pytest --cov --cov-report=term-missing

@@ -1,10 +1,10 @@
 import asyncio
 from uuid import uuid4
 
-from uniemind.memory import MemoryRouter
-from uniemind.schema import ErrorCode, SkillRequest
-from uniemind.skills import SkillContext, SkillRegistry, SkillRuntime
-from uniemind.world_model import WorldModel
+from memory import MemoryRouter
+from schema import ErrorCode, SkillRequest
+from skills import SkillContext, SkillRegistry, SkillRuntime
+from world_model import WorldModel
 
 
 def test_unknown_skill_returns_standard_error() -> None:

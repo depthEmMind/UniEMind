@@ -1,0 +1,5 @@
+engine: in_process
+locations:
+  - lab_bench
+  - sink
+  - table

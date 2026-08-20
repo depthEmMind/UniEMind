@@ -1,0 +1,10 @@
+# Runtime dependencies for UniEMind (Python 3.11, conda env UniEMind).
+# Install:
+#   conda activate UniEMind
+#   python -m pip install -r requirements.txt
+annotated-types==0.8.0
+pydantic==2.13.4
+pydantic-core==2.46.4
+PyYAML==6.0.3
+typing-extensions==4.16.0
+typing-inspection==0.4.4

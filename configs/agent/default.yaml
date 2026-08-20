@@ -1,0 +1,4 @@
+planner: goal
+max_retries: 1
+graph:
+  start: understand

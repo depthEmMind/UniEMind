@@ -1,6 +1,6 @@
 import asyncio
 
-from uniemind.core import DataBus
+from core import DataBus
 
 
 def test_data_bus_delivers_to_topic_and_wildcard() -> None:

@@ -1,8 +1,8 @@
 import asyncio
 from uuid import uuid4
 
-from uniemind.safety import SafetyGuard
-from uniemind.schema import ActionRequest, ActionType
+from safety import SafetyGuard
+from schema import ActionRequest, ActionType
 
 
 def _request(**changes: object) -> ActionRequest:
